@@ -13,7 +13,6 @@ namespace TPI_MSI.Models
         }
 
         public int Id { get; set; }
-        public int? Idrack { get; set; }
         public DateTime? Fechaegreso { get; set; }
         public TimeSpan? Horaegreso { get; set; }
         public int? Iddestinatario { get; set; }

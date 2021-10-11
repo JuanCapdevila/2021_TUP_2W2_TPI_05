@@ -14,6 +14,7 @@ namespace TPI_MSI.Models
 
         public int Id { get; set; }
         public string Razonsocial { get; set; }
+        public string Direccion { get; set; }
 
         public virtual ICollection<Pedido> Pedidos { get; set; }
     }

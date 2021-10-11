@@ -16,23 +16,23 @@ namespace TPI_MSI.Controllers
 {
     [ApiController]
     [EnableCors("Prog3")]
-    public class EmpaquetadoController : ControllerBase
+    public class MarcaController : ControllerBase
     {
-        private readonly StockBDContext  db = new StockBDContext();
+        private readonly EASYSTOCKBDContext  db = new EASYSTOCKBDContext();
     
 
-        public EmpaquetadoController()
+        public MarcaController()
         {
 
         }
-        // MOSTRAR TODOS LAS CLASES DE EMPAQUETADOS
+        // MOSTRAR TODOS LAS MARCAS 
         [HttpGet]
-        [Route("Empaquetado/ObtenerEmpaquetado")]
+        [Route("Marca/ObtenerMarca")]
         public ActionResult<ResultadoApi> Get()
         {
             var resultado = new ResultadoApi();
             resultado.OK = true;
-            resultado.Return = db.Empaquetados.ToList();
+            resultado.Return = db.Marcas.ToList();
           
             return resultado;
         }
