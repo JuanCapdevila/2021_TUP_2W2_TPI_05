@@ -12,7 +12,6 @@ namespace TPI_MSI.Models
         {
             DetallesDespachos = new HashSet<DetallesDespacho>();
             DetallesPedidos = new HashSet<DetallesPedido>();
-            Stocks = new HashSet<Stock>();
         }
 
         public int Id { get; set; }
@@ -25,15 +24,14 @@ namespace TPI_MSI.Models
         public decimal? Peso { get; set; }
         public string Unidadmedicion { get; set; }
         public BitArray Esfragil { get; set; }
-        public int? Idubicacion { get; set; }
+        public int? Idstock { get; set; }
 
         public virtual Empaquetado IdempaquetadoNavigation { get; set; }
         public virtual Marca IdmarcaNavigation { get; set; }
         public virtual PaisesOrigen IdpaisorigentNavigation { get; set; }
         public virtual Rubro IdrubroNavigation { get; set; }
-        public virtual Ubicacione IdubicacionNavigation { get; set; }
+        public virtual Stock IdstockNavigation { get; set; }
         public virtual ICollection<DetallesDespacho> DetallesDespachos { get; set; }
         public virtual ICollection<DetallesPedido> DetallesPedidos { get; set; }
-        public virtual ICollection<Stock> Stocks { get; set; }
     }
 }

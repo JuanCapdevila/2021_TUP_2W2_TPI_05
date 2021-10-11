@@ -15,9 +15,6 @@ namespace TPI_MSI.Models
         public int Id { get; set; }
         public string Descripcion { get; set; }
         public int? Cantidadestantes { get; set; }
-        public int? Cantidadubicaciones { get; set; }
-        public int? Capacidadtotal { get; set; }
-        public int? Capacidaddisponible { get; set; }
 
         public virtual ICollection<Estante> Estantes { get; set; }
     }
