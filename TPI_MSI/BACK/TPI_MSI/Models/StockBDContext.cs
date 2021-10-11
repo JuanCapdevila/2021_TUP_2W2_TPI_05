@@ -445,10 +445,10 @@ namespace TPI_MSI.Models
                     .HasMaxLength(40)
                     .HasColumnName("usuario");
 
-                entity.HasOne(d => d.IdrolNavigation)
-                    .WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.Idrol)
-                    .HasConstraintName("usuarios_idrol_fkey");
+                //entity.HasOne(d => d.IdrolNavigation)
+                   // .WithMany(p => p.Usuarios)
+                   // .HasForeignKey(d => d.Idrol)
+                   // .HasConstraintName("usuarios_idrol_fkey");
             });
 
             modelBuilder.HasSequence("seq_pk").HasMax(9999999999);
