@@ -9,7 +9,7 @@ namespace TPI_MSI.Models
     {
         public int Id { get; set; }
         public string Usuario1 { get; set; }
-        public string Password { get; set; }
+        public string Contrasenia { get; set; }
         public int? Idrol { get; set; }
 
         public virtual Role IdrolNavigation { get; set; }
