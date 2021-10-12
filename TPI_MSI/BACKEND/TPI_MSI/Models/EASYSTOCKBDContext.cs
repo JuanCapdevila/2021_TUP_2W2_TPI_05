@@ -41,7 +41,7 @@ namespace TPI_MSI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=EASYSTOCKBD;User Id=msiES;Password=123456");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5433;Database=EASYSTOCKBD;User Id=msiES;Password=123456");
             }
         }
 
@@ -53,7 +53,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("despachos_productos");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Fechaegreso)
                     .HasColumnType("date")
@@ -75,7 +77,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("destinatarios");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(60)
@@ -90,7 +94,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("detalles_despachos");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Iddespacho).HasColumnName("iddespacho");
 
@@ -111,7 +117,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("detalles_despacho_x_estantes");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cantidad).HasColumnName("cantidad");
 
@@ -134,7 +142,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("detalles_pedido");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cantidadpedida).HasColumnName("cantidadpedida");
 
@@ -159,7 +169,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("detalles_pedido_x_estantes");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cantidad).HasColumnName("cantidad");
 
@@ -182,7 +194,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("empaquetados");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -194,7 +208,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("estados");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -206,7 +222,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("estantes");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Capacidaddisponible).HasColumnName("capacidaddisponible");
 
@@ -226,7 +244,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("marcas");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -238,7 +258,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("paises_origen");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.PaisOrigen)
                     .IsRequired()
@@ -250,7 +272,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("pedidos");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(100)
@@ -289,15 +313,15 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("productos");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(100)
                     .HasColumnName("descripcion");
 
-                entity.Property(e => e.Esfragil)
-                    .HasColumnType("boolean")
-                    .HasColumnName("esfragil");
+                entity.Property(e => e.Esfragil).HasColumnName("esfragil");
 
                 entity.Property(e => e.Idempaquetado).HasColumnName("idempaquetado");
 
@@ -322,37 +346,39 @@ namespace TPI_MSI.Models
                     .HasMaxLength(60)
                     .HasColumnName("unidadmedicion");
 
-                //entity.HasOne(d => d.IdempaquetadoNavigation)
-                //    .WithMany(p => p.Productos)
-                //    .HasForeignKey(d => d.Idempaquetado)
-                //    .HasConstraintName("productos_idempaquetado_fkey");
+                entity.HasOne(d => d.IdempaquetadoNavigation)
+                    .WithMany(p => p.Productos)
+                    .HasForeignKey(d => d.Idempaquetado)
+                    .HasConstraintName("productos_idempaquetado_fkey");
 
-                //entity.HasOne(d => d.IdmarcaNavigation)
-                //    .WithMany(p => p.Productos)
-                //    .HasForeignKey(d => d.Idmarca)
-                //    .HasConstraintName("productos_idmarca_fkey");
+                entity.HasOne(d => d.IdmarcaNavigation)
+                    .WithMany(p => p.Productos)
+                    .HasForeignKey(d => d.Idmarca)
+                    .HasConstraintName("productos_idmarca_fkey");
 
-                //entity.HasOne(d => d.IdpaisorigentNavigation)
-                  //  .WithMany(p => p.Productos)
-                    //.HasForeignKey(d => d.Idpaisorigent)
-                    //.HasConstraintName("productos_idpaisorigent_fkey");
+                entity.HasOne(d => d.IdpaisorigentNavigation)
+                    .WithMany(p => p.Productos)
+                    .HasForeignKey(d => d.Idpaisorigent)
+                    .HasConstraintName("productos_idpaisorigent_fkey");
 
-                //entity.HasOne(d => d.IdrubroNavigation)
-                  //  .WithMany(p => p.Productos)
-                  //  .HasForeignKey(d => d.Idrubro)
-                  //  .HasConstraintName("productos_idrubro_fkey");
+                entity.HasOne(d => d.IdrubroNavigation)
+                    .WithMany(p => p.Productos)
+                    .HasForeignKey(d => d.Idrubro)
+                    .HasConstraintName("productos_idrubro_fkey");
 
-                //entity.HasOne(d => d.IdstockNavigation)
-                //    .WithMany(p => p.Productos)
-                //    .HasForeignKey(d => d.Idstock)
-                //    .HasConstraintName("productos_idstock_fkey");
+                entity.HasOne(d => d.IdstockNavigation)
+                    .WithMany(p => p.Productos)
+                    .HasForeignKey(d => d.Idstock)
+                    .HasConstraintName("productos_idstock_fkey");
             });
 
             modelBuilder.Entity<Proveedore>(entity =>
             {
                 entity.ToTable("proveedores");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Direccion)
                     .HasMaxLength(40)
@@ -368,7 +394,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("racks");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cantidadestantes).HasColumnName("cantidadestantes");
 
@@ -382,7 +410,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("roles");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -394,7 +424,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("rubros");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -406,7 +438,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("stocks");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Stockactual).HasColumnName("stockactual");
             });
@@ -415,7 +449,9 @@ namespace TPI_MSI.Models
             {
                 entity.ToTable("usuarios");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Contrasenia)
                     .HasMaxLength(20)
@@ -428,10 +464,10 @@ namespace TPI_MSI.Models
                     .HasMaxLength(40)
                     .HasColumnName("usuario");
 
-                //entity.HasOne(d => d.IdrolNavigation)
-                   // .WithMany(p => p.Usuarios)
-                   // .HasForeignKey(d => d.Idrol)
-                   // .HasConstraintName("usuarios_idrol_fkey");
+                entity.HasOne(d => d.IdrolNavigation)
+                    .WithMany(p => p.Usuarios)
+                    .HasForeignKey(d => d.Idrol)
+                    .HasConstraintName("usuarios_idrol_fkey");
             });
 
             OnModelCreatingPartial(modelBuilder);
