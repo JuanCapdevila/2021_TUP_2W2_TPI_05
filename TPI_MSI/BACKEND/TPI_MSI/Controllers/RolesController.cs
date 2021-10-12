@@ -18,7 +18,7 @@ namespace TPI_MSI.Controllers
     [EnableCors("Prog3")]
     public class RolesController : ControllerBase
     {
-        private readonly StockBDContext  db = new StockBDContext();
+        private readonly EASYSTOCKBDContext  db = new EASYSTOCKBDContext();
     
 
         public RolesController()
