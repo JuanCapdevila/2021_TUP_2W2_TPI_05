@@ -9,12 +9,12 @@ namespace TPI_MSI.Models
     {
         public PaisesOrigen()
         {
-            Productos = new HashSet<Producto>();
+            //Productos = new HashSet<Producto>();
         }
 
         public int Id { get; set; }
         public string PaisOrigen { get; set; }
 
-        public virtual ICollection<Producto> Productos { get; set; }
+        //public virtual ICollection<Producto> Productos { get; set; }
     }
 }

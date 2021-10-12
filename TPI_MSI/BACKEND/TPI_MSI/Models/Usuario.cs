@@ -12,7 +12,8 @@ namespace TPI_MSI.Models
         public string Usuario1 { get; set; }
         public string Contrasenia { get; set; }
         public int? Idrol { get; set; }
-
+        
+        
         [ForeignKey("Id")]
         public virtual Role IdrolNavigation { get; set; }
     }
