@@ -67,7 +67,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Seleccione:</h6>
                         <a class="collapse-item" href="./index.html">Listado de productos</a>
-                        <a class="collapse-item" href="./historial_productos.html">Historial de productos</a> 
+                        <a class="collapse-item" href="./Historial-Prod.html">Historial de productos</a> 
                         <a class="collapse-item" href="">Crear producto</a>
                         <a class="collapse-item" href="">Modificar producto</a>
                         <a class="collapse-item" href="">Eliminar producto</a>                                               
@@ -85,18 +85,15 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Seleccione:</h6>
-                        <a class="collapse-item" href="./reporte_proveedores.html">Proveedores</a>
-                        <a class="collapse-item" href="./reporte_mov_productos.html">Movimientos de productos</a>
-                        <a class="collapse-item" href="./reporte_mov_por_periodos.html">Movimientos por periodos</a>
-                        <!--
-                        <a class="collapse-item" href="./reporte_mov_periodos_detalle.html">Detalles por periodos</a>
-                        -->
+                        <a class="collapse-item" href="">Proveedores</a>
+                        <a class="collapse-item" href="./Mov-Productos.html">Movimientos de productos</a>
+                        <a class="collapse-item" href="./MovXperiodo.html">Movimientos por periodos</a>
+                        <a class="collapse-item" href="">Detalles por periodos</a>
                     </div>
                 </div>
             </li>
 
             <!-- Divider -->
-            <br>
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
@@ -152,93 +149,35 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Listado de Productos</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Reporte de Proveedores</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
+
                     <!-- Content Row -->
-                    <div class="row"> 
+                    <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-12 col-md-12 mb-4">
+                        <div class="col-xl-12 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col-12 mr-2 mb-3">
-                                            <div class="text font-weight-bold text-primary text-uppercase mb-1">FILTRAR POR:</div>
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                FILTRAR POR:</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
                                         </div>
-                                        <div class="col-lg-4 pl-5">
-                                            <label for="">Marca:</label>
-                                            <select class="form-select form-control" id="comboCiud" required>
-                                                <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4 pl-5">
-                                            <label for="">Rubro:</label>
-                                            <select class="form-select form-control " id="comboCiud" required>
-                                                <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4 pl-5">
-                                            <label for="">Empaquetado:</label>
-                                            <select class="form-select form-control " id="comboCiud" required>
-                                                <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
-                                            </select>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-12 col-md-12 mb-4">
-                            <div class="card border-left shadow h-100" style="width: auto auto;">
-                                <div class="card-header">
-                                    <h6 class="m-0 font-weight-bold text-primary">Tabla de Productos</h6>
-                                </div>
-                                <div class="card-body">
-                                        <div class="row">
-                                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm mb-3 ml-3">Crear Producto</a>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered text-center" width="100%" cellspacing="0">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Descripción</th>
-                                                    <th scope="col">Stock</th>
-                                                    <th scope="col">Marca</th>
-                                                    <th scope="col">Rubro</th>
-                                                    <th scope="col">Modificar</th>
-                                                    <th scope="col">Eliminar</th>
-                                                    <th scope="col">Historial</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th scope="row">Televisor</th>
-                                                    <td>Pantalla plana 20''</td>
-                                                    <td>25</td>
-                                                    <td>Sony</td>
-                                                    <td>Tecnología</td>
-                                                    <td><button type="button" style="margin: 0 auto;display: block;" class="btn btn-sm btn-outline-primary">Modificar</button></td>
-                                                    <td><button type="button" style="margin: 0 auto;display: block;" class="btn btn-sm btn-outline-danger">Eliminar</button></td>
-                                                    <td><button type="button" style="margin: 0 auto;display: block;" class="btn btn-sm btn-outline-warning">Historial</button></td>
-                                                </tr>
-                                                </tbody>
-                                          </table>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    <!-- Content Row -->
+
                     </div>
-                <!-- Fin Container-fluid -->
-                </div>
-                    
+
+                    <!-- Content Row -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -267,7 +206,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Deseas abandonar?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -293,13 +232,10 @@
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
