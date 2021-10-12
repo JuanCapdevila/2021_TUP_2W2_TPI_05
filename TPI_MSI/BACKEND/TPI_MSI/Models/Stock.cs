@@ -12,7 +12,7 @@ namespace TPI_MSI.Models
             Productos = new HashSet<Producto>();
         }
 
-        public int Id { get; set; }
+        public int Idstock { get; set; }
         public int? Stockactual { get; set; }
 
         public virtual ICollection<Producto> Productos { get; set; }

@@ -12,7 +12,7 @@ namespace TPI_MSI.Models
             Usuarios = new HashSet<Usuario>();
         }
 
-        public int Id { get; set; }
+        public int Idrol { get; set; }
         public string Descripcion { get; set; }
 
         public virtual ICollection<Usuario> Usuarios { get; set; }

@@ -12,7 +12,7 @@ namespace TPI_MSI.Models
             Estantes = new HashSet<Estante>();
         }
 
-        public int Id { get; set; }
+        public int Idrack { get; set; }
         public string Descripcion { get; set; }
         public int? Cantidadestantes { get; set; }
 

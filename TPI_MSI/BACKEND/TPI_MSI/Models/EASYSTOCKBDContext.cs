@@ -41,7 +41,7 @@ namespace TPI_MSI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5433;Database=EASYSTOCKBD;User Id=prog3;Password=fortunato");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=EASYSTOCKBD;User Id=msiES;Password=123456");
             }
         }
 
@@ -51,9 +51,14 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<DespachosProducto>(entity =>
             {
+                entity.HasKey(e => e.Iddespachoproducto)
+                    .HasName("despachos_productos_pkey");
+
                 entity.ToTable("despachos_productos");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Iddespachoproducto)
+                    .HasColumnName("iddespachoproducto")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Fechaegreso)
                     .HasColumnType("date")
@@ -63,19 +68,24 @@ namespace TPI_MSI.Models
                     .HasColumnType("time without time zone")
                     .HasColumnName("horaegreso");
 
-                entity.Property(e => e.Iddestinatario).HasColumnName("iddestinatario");
+                entity.Property(e => e.Iddestinatariofk).HasColumnName("iddestinatariofk");
 
-                entity.HasOne(d => d.IddestinatarioNavigation)
+                entity.HasOne(d => d.IddestinatariofkNavigation)
                     .WithMany(p => p.DespachosProductos)
-                    .HasForeignKey(d => d.Iddestinatario)
-                    .HasConstraintName("despachos_productos_iddestinatario_fkey");
+                    .HasForeignKey(d => d.Iddestinatariofk)
+                    .HasConstraintName("despachos_productos_iddestinatariofk_fkey");
             });
 
             modelBuilder.Entity<Destinatario>(entity =>
             {
+                entity.HasKey(e => e.Iddestinatario)
+                    .HasName("destinatarios_pkey");
+
                 entity.ToTable("destinatarios");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Iddestinatario)
+                    .HasColumnName("iddestinatario")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(60)
@@ -88,101 +98,126 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<DetallesDespacho>(entity =>
             {
+                entity.HasKey(e => e.Iddetalledespacho)
+                    .HasName("detalles_despachos_pkey");
+
                 entity.ToTable("detalles_despachos");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Iddetalledespacho)
+                    .HasColumnName("iddetalledespacho")
+                    .UseIdentityAlwaysColumn();
 
-                entity.Property(e => e.Iddespacho).HasColumnName("iddespacho");
+                entity.Property(e => e.Iddespachofk).HasColumnName("iddespachofk");
 
-                entity.Property(e => e.Idproducto).HasColumnName("idproducto");
+                entity.Property(e => e.Idproductofk).HasColumnName("idproductofk");
 
-                entity.HasOne(d => d.IddespachoNavigation)
+                entity.HasOne(d => d.IddespachofkNavigation)
                     .WithMany(p => p.DetallesDespachos)
-                    .HasForeignKey(d => d.Iddespacho)
-                    .HasConstraintName("detalles_despachos_iddespacho_fkey");
+                    .HasForeignKey(d => d.Iddespachofk)
+                    .HasConstraintName("detalles_despachos_iddespachofk_fkey");
 
-                entity.HasOne(d => d.IdproductoNavigation)
+                entity.HasOne(d => d.IdproductofkNavigation)
                     .WithMany(p => p.DetallesDespachos)
-                    .HasForeignKey(d => d.Idproducto)
-                    .HasConstraintName("detalles_despachos_idproducto_fkey");
+                    .HasForeignKey(d => d.Idproductofk)
+                    .HasConstraintName("detalles_despachos_idproductofk_fkey");
             });
 
             modelBuilder.Entity<DetallesDespachoXEstante>(entity =>
             {
+                entity.HasKey(e => e.Iddetalledespachoxestante)
+                    .HasName("detalles_despacho_x_estantes_pkey");
+
                 entity.ToTable("detalles_despacho_x_estantes");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Iddetalledespachoxestante)
+                    .HasColumnName("iddetalledespachoxestante")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cantidad).HasColumnName("cantidad");
 
-                entity.Property(e => e.IddetallesDespachos).HasColumnName("iddetalles_despachos");
+                entity.Property(e => e.IddetallesDespachosfk).HasColumnName("iddetalles_despachosfk");
 
-                entity.Property(e => e.Idestante).HasColumnName("idestante");
+                entity.Property(e => e.Idestantefk).HasColumnName("idestantefk");
 
-                entity.HasOne(d => d.IddetallesDespachosNavigation)
+                entity.HasOne(d => d.IddetallesDespachosfkNavigation)
                     .WithMany(p => p.DetallesDespachoXEstantes)
-                    .HasForeignKey(d => d.IddetallesDespachos)
-                    .HasConstraintName("detalles_despacho_x_estantes_iddetalles_despachos_fkey");
+                    .HasForeignKey(d => d.IddetallesDespachosfk)
+                    .HasConstraintName("detalles_despacho_x_estantes_iddetalles_despachosfk_fkey");
 
-                entity.HasOne(d => d.IdestanteNavigation)
+                entity.HasOne(d => d.IdestantefkNavigation)
                     .WithMany(p => p.DetallesDespachoXEstantes)
-                    .HasForeignKey(d => d.Idestante)
-                    .HasConstraintName("detalles_despacho_x_estantes_idestante_fkey");
+                    .HasForeignKey(d => d.Idestantefk)
+                    .HasConstraintName("detalles_despacho_x_estantes_idestantefk_fkey");
             });
 
             modelBuilder.Entity<DetallesPedido>(entity =>
             {
+                entity.HasKey(e => e.Iddetallepedido)
+                    .HasName("detalles_pedido_pkey");
+
                 entity.ToTable("detalles_pedido");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Iddetallepedido)
+                    .HasColumnName("iddetallepedido")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cantidadpedida).HasColumnName("cantidadpedida");
 
                 entity.Property(e => e.Cantidadrecibida).HasColumnName("cantidadrecibida");
 
-                entity.Property(e => e.Idpedido).HasColumnName("idpedido");
+                entity.Property(e => e.Idpedidofk).HasColumnName("idpedidofk");
 
-                entity.Property(e => e.Idproducto).HasColumnName("idproducto");
+                entity.Property(e => e.Idproductofk).HasColumnName("idproductofk");
 
-                entity.HasOne(d => d.IdpedidoNavigation)
+                entity.HasOne(d => d.IdpedidofkNavigation)
                     .WithMany(p => p.DetallesPedidos)
-                    .HasForeignKey(d => d.Idpedido)
-                    .HasConstraintName("detalles_pedido_idpedido_fkey");
+                    .HasForeignKey(d => d.Idpedidofk)
+                    .HasConstraintName("detalles_pedido_idpedidofk_fkey");
 
-                entity.HasOne(d => d.IdproductoNavigation)
+                entity.HasOne(d => d.IdproductofkNavigation)
                     .WithMany(p => p.DetallesPedidos)
-                    .HasForeignKey(d => d.Idproducto)
-                    .HasConstraintName("detalles_pedido_idproducto_fkey");
+                    .HasForeignKey(d => d.Idproductofk)
+                    .HasConstraintName("detalles_pedido_idproductofk_fkey");
             });
 
             modelBuilder.Entity<DetallesPedidoXEstante>(entity =>
             {
+                entity.HasKey(e => e.Iddetallepedidoxestante)
+                    .HasName("detalles_pedido_x_estantes_pkey");
+
                 entity.ToTable("detalles_pedido_x_estantes");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Iddetallepedidoxestante)
+                    .HasColumnName("iddetallepedidoxestante")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cantidad).HasColumnName("cantidad");
 
-                entity.Property(e => e.IddetallesPedido).HasColumnName("iddetalles_pedido");
+                entity.Property(e => e.IddetallesPedidofk).HasColumnName("iddetalles_pedidofk");
 
-                entity.Property(e => e.Idestante).HasColumnName("idestante");
+                entity.Property(e => e.Idestantefk).HasColumnName("idestantefk");
 
-                entity.HasOne(d => d.IddetallesPedidoNavigation)
+                entity.HasOne(d => d.IddetallesPedidofkNavigation)
                     .WithMany(p => p.DetallesPedidoXEstantes)
-                    .HasForeignKey(d => d.IddetallesPedido)
-                    .HasConstraintName("detalles_pedido_x_estantes_iddetalles_pedido_fkey");
+                    .HasForeignKey(d => d.IddetallesPedidofk)
+                    .HasConstraintName("detalles_pedido_x_estantes_iddetalles_pedidofk_fkey");
 
-                entity.HasOne(d => d.IdestanteNavigation)
+                entity.HasOne(d => d.IdestantefkNavigation)
                     .WithMany(p => p.DetallesPedidoXEstantes)
-                    .HasForeignKey(d => d.Idestante)
-                    .HasConstraintName("detalles_pedido_x_estantes_idestante_fkey");
+                    .HasForeignKey(d => d.Idestantefk)
+                    .HasConstraintName("detalles_pedido_x_estantes_idestantefk_fkey");
             });
 
             modelBuilder.Entity<Empaquetado>(entity =>
             {
+                entity.HasKey(e => e.Idempaquetado)
+                    .HasName("empaquetados_pkey");
+
                 entity.ToTable("empaquetados");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idempaquetado)
+                    .HasColumnName("idempaquetado")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -192,9 +227,14 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<Estado>(entity =>
             {
+                entity.HasKey(e => e.Idestado)
+                    .HasName("estados_pkey");
+
                 entity.ToTable("estados");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idestado)
+                    .HasColumnName("idestado")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -204,9 +244,14 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<Estante>(entity =>
             {
+                entity.HasKey(e => e.Idestante)
+                    .HasName("estantes_pkey");
+
                 entity.ToTable("estantes");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idestante)
+                    .HasColumnName("idestante")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Capacidaddisponible).HasColumnName("capacidaddisponible");
 
@@ -214,19 +259,24 @@ namespace TPI_MSI.Models
                     .HasMaxLength(40)
                     .HasColumnName("descripcion");
 
-                entity.Property(e => e.Idrack).HasColumnName("idrack");
+                entity.Property(e => e.Idrackfk).HasColumnName("idrackfk");
 
-                entity.HasOne(d => d.IdrackNavigation)
+                entity.HasOne(d => d.IdrackfkNavigation)
                     .WithMany(p => p.Estantes)
-                    .HasForeignKey(d => d.Idrack)
-                    .HasConstraintName("estantes_idrack_fkey");
+                    .HasForeignKey(d => d.Idrackfk)
+                    .HasConstraintName("estantes_idrackfk_fkey");
             });
 
             modelBuilder.Entity<Marca>(entity =>
             {
+                entity.HasKey(e => e.Idmarca)
+                    .HasName("marcas_pkey");
+
                 entity.ToTable("marcas");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idmarca)
+                    .HasColumnName("idmarca")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -236,9 +286,14 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<PaisesOrigen>(entity =>
             {
+                entity.HasKey(e => e.Idpaisorigen)
+                    .HasName("paises_origen_pkey");
+
                 entity.ToTable("paises_origen");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idpaisorigen)
+                    .HasColumnName("idpaisorigen")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.PaisOrigen)
                     .IsRequired()
@@ -248,9 +303,14 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<Pedido>(entity =>
             {
+                entity.HasKey(e => e.Idpedido)
+                    .HasName("pedidos_pkey");
+
                 entity.ToTable("pedidos");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idpedido)
+                    .HasColumnName("idpedido")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(100)
@@ -268,46 +328,49 @@ namespace TPI_MSI.Models
                     .HasColumnType("date")
                     .HasColumnName("fecharecepcion");
 
-                entity.Property(e => e.Idestado).HasColumnName("idestado");
+                entity.Property(e => e.Idestadofk).HasColumnName("idestadofk");
 
-                entity.Property(e => e.Idproveedor).HasColumnName("idproveedor");
+                entity.Property(e => e.Idproveedorfk).HasColumnName("idproveedorfk");
 
                 entity.Property(e => e.Numeroremito).HasColumnName("numeroremito");
 
-                entity.HasOne(d => d.IdestadoNavigation)
+                entity.HasOne(d => d.IdestadofkNavigation)
                     .WithMany(p => p.Pedidos)
-                    .HasForeignKey(d => d.Idestado)
-                    .HasConstraintName("pedidos_idestado_fkey");
+                    .HasForeignKey(d => d.Idestadofk)
+                    .HasConstraintName("pedidos_idestadofk_fkey");
 
-                entity.HasOne(d => d.IdproveedorNavigation)
+                entity.HasOne(d => d.IdproveedorfkNavigation)
                     .WithMany(p => p.Pedidos)
-                    .HasForeignKey(d => d.Idproveedor)
-                    .HasConstraintName("pedidos_idproveedor_fkey");
+                    .HasForeignKey(d => d.Idproveedorfk)
+                    .HasConstraintName("pedidos_idproveedorfk_fkey");
             });
 
             modelBuilder.Entity<Producto>(entity =>
             {
+                entity.HasKey(e => e.Idproducto)
+                    .HasName("productos_pkey");
+
                 entity.ToTable("productos");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idproducto)
+                    .HasColumnName("idproducto")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(100)
                     .HasColumnName("descripcion");
 
-                entity.Property(e => e.Esfragil)
-                    .HasColumnType("bit(1)")
-                    .HasColumnName("esfragil");
+                entity.Property(e => e.Esfragil).HasColumnName("esfragil");
 
-                entity.Property(e => e.Idempaquetado).HasColumnName("idempaquetado");
+                entity.Property(e => e.Idempaquetadofk).HasColumnName("idempaquetadofk");
 
-                entity.Property(e => e.Idmarca).HasColumnName("idmarca");
+                entity.Property(e => e.Idmarcafk).HasColumnName("idmarcafk");
 
-                entity.Property(e => e.Idpaisorigent).HasColumnName("idpaisorigent");
+                entity.Property(e => e.Idpaisorigenfk).HasColumnName("idpaisorigenfk");
 
-                entity.Property(e => e.Idrubro).HasColumnName("idrubro");
+                entity.Property(e => e.Idrubrofk).HasColumnName("idrubrofk");
 
-                entity.Property(e => e.Idstock).HasColumnName("idstock");
+                entity.Property(e => e.Idstockfk).HasColumnName("idstockfk");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -322,37 +385,42 @@ namespace TPI_MSI.Models
                     .HasMaxLength(60)
                     .HasColumnName("unidadmedicion");
 
-                entity.HasOne(d => d.IdempaquetadoNavigation)
+                entity.HasOne(d => d.IdempaquetadofkNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idempaquetado)
-                    .HasConstraintName("productos_idempaquetado_fkey");
+                    .HasForeignKey(d => d.Idempaquetadofk)
+                    .HasConstraintName("productos_idempaquetadofk_fkey");
 
-                entity.HasOne(d => d.IdmarcaNavigation)
+                entity.HasOne(d => d.IdmarcafkNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idmarca)
-                    .HasConstraintName("productos_idmarca_fkey");
+                    .HasForeignKey(d => d.Idmarcafk)
+                    .HasConstraintName("productos_idmarcafk_fkey");
 
-                entity.HasOne(d => d.IdpaisorigentNavigation)
+                entity.HasOne(d => d.IdpaisorigenfkNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idpaisorigent)
-                    .HasConstraintName("productos_idpaisorigent_fkey");
+                    .HasForeignKey(d => d.Idpaisorigenfk)
+                    .HasConstraintName("productos_idpaisorigenfk_fkey");
 
-                entity.HasOne(d => d.IdrubroNavigation)
+                entity.HasOne(d => d.IdrubrofkNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idrubro)
-                    .HasConstraintName("productos_idrubro_fkey");
+                    .HasForeignKey(d => d.Idrubrofk)
+                    .HasConstraintName("productos_idrubrofk_fkey");
 
-                entity.HasOne(d => d.IdstockNavigation)
+                entity.HasOne(d => d.IdstockfkNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idstock)
-                    .HasConstraintName("productos_idstock_fkey");
+                    .HasForeignKey(d => d.Idstockfk)
+                    .HasConstraintName("productos_idstockfk_fkey");
             });
 
             modelBuilder.Entity<Proveedore>(entity =>
             {
+                entity.HasKey(e => e.Idproveedor)
+                    .HasName("proveedores_pkey");
+
                 entity.ToTable("proveedores");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idproveedor)
+                    .HasColumnName("idproveedor")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Direccion)
                     .HasMaxLength(40)
@@ -366,9 +434,14 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<Rack>(entity =>
             {
+                entity.HasKey(e => e.Idrack)
+                    .HasName("racks_pkey");
+
                 entity.ToTable("racks");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idrack)
+                    .HasColumnName("idrack")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cantidadestantes).HasColumnName("cantidadestantes");
 
@@ -380,9 +453,14 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<Role>(entity =>
             {
+                entity.HasKey(e => e.Idrol)
+                    .HasName("roles_pkey");
+
                 entity.ToTable("roles");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idrol)
+                    .HasColumnName("idrol")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -392,9 +470,14 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<Rubro>(entity =>
             {
+                entity.HasKey(e => e.Idrubro)
+                    .HasName("rubros_pkey");
+
                 entity.ToTable("rubros");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idrubro)
+                    .HasColumnName("idrubro")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
@@ -404,34 +487,44 @@ namespace TPI_MSI.Models
 
             modelBuilder.Entity<Stock>(entity =>
             {
+                entity.HasKey(e => e.Idstock)
+                    .HasName("stocks_pkey");
+
                 entity.ToTable("stocks");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idstock)
+                    .HasColumnName("idstock")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Stockactual).HasColumnName("stockactual");
             });
 
             modelBuilder.Entity<Usuario>(entity =>
             {
+                entity.HasKey(e => e.Idusuario)
+                    .HasName("usuarios_pkey");
+
                 entity.ToTable("usuarios");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Idusuario)
+                    .HasColumnName("idusuario")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Contrasenia)
                     .HasMaxLength(20)
                     .HasColumnName("contrasenia");
 
-                entity.Property(e => e.Idrol).HasColumnName("idrol");
+                entity.Property(e => e.Idrolfk).HasColumnName("idrolfk");
 
                 entity.Property(e => e.Usuario1)
                     .IsRequired()
                     .HasMaxLength(40)
                     .HasColumnName("usuario");
 
-                entity.HasOne(d => d.IdrolNavigation)
+                entity.HasOne(d => d.IdrolfkNavigation)
                     .WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.Idrol)
-                    .HasConstraintName("usuarios_idrol_fkey");
+                    .HasForeignKey(d => d.Idrolfk)
+                    .HasConstraintName("usuarios_idrolfk_fkey");
             });
 
             OnModelCreatingPartial(modelBuilder);
