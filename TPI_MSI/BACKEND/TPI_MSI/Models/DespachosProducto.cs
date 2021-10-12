@@ -12,12 +12,12 @@ namespace TPI_MSI.Models
             DetallesDespachos = new HashSet<DetallesDespacho>();
         }
 
-        public int Id { get; set; }
+        public int Iddespachoproducto { get; set; }
         public DateTime? Fechaegreso { get; set; }
         public TimeSpan? Horaegreso { get; set; }
-        public int? Iddestinatario { get; set; }
+        public int? Iddestinatariofk { get; set; }
 
-        public virtual Destinatario IddestinatarioNavigation { get; set; }
+        public virtual Destinatario IddestinatariofkNavigation { get; set; }
         public virtual ICollection<DetallesDespacho> DetallesDespachos { get; set; }
     }
 }

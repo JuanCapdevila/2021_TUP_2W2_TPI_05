@@ -12,7 +12,7 @@ namespace TPI_MSI.Models
             Pedidos = new HashSet<Pedido>();
         }
 
-        public int Id { get; set; }
+        public int Idproveedor { get; set; }
         public string Razonsocial { get; set; }
         public string Direccion { get; set; }
 
