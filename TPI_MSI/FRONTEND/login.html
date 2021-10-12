@@ -49,8 +49,6 @@
                                         <div class="form-group">
                                             <select class="form-select form-control" id="cboRol" required>
                                                 <option selected value="" disabled>Seleccione un rol</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
                                             </select>
                                         </div>
                                         <button id="btnIngresar" type="submit" class="btn btn-primary btn btn-block">Ingresar</button>
@@ -75,9 +73,10 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>  
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
     <script src="js/easystock.js"></script>    
+    
 
     <script>
 
@@ -85,12 +84,12 @@
 
             //AJAX para obtener los Roles
             $.ajax({
-                url: "ingresar el endpoint de obtener roles",
+                url: "https://localhost:5001/Roles/ObtenerRoles",
                 type: "GET",
                 success: function(result) {
                     if(result.ok)
                     {
-                        cargarCombo(result.respuesta);                    
+                        cargarCombo(result.return);                    
                     }
                     else{
                         Swal.fire({
@@ -117,58 +116,58 @@
                 console.log(select.value);
             }
             
-            //Funcion para validar el login
-            $("#btnIngresar").click(function() {        
-                event.preventDefault();
+            // //Funcion para validar el login
+            // $("#btnIngresar").click(function() {        
+            //     event.preventDefault();
 
-                var rol = $("#cboRol option:selected").index(); 
-                if(rol == 0){
-                    swal.fire("Por favor selecciones una rol. Gracias.");
-                    return false;
-                }
+            //     var rol = $("#cboRol option:selected").index(); 
+            //     if(rol == 0){
+            //         swal.fire("Por favor selecciones una rol. Gracias.");
+            //         return false;
+            //     }
 
-                var email = $("#txtEmail").val();
-                var pass = $("#txtPass").val();
+            //     var email = $("#txtEmail").val();
+            //     var pass = $("#txtPass").val();
 
-                if(email === "" || pass === ""){
-                    swal.fire("Por favor llene los campos vacíos");
-                }
-                else{
-                    realizarLogin(email,pass);
-                }
-            });            
+            //     if(email === "" || pass === ""){
+            //         swal.fire("Por favor llene los campos vacíos");
+            //     }
+            //     else{
+            //         realizarLogin(email,pass);
+            //     }
+            // });            
 
-            //Funcion para realizar el login (COPIA DEL LOGIN DE PROGRAMACION III, HAY Q ACTUALIZAR LOS DATOS)
-            function realizarLogin(email, pass){
-                comando = {
-                    "email": email,
-                    "password": pass
-                };  
+            // //Funcion para realizar el login (COPIA DEL LOGIN DE PROGRAMACION III, HAY Q ACTUALIZAR LOS DATOS)
+            // function realizarLogin(email, pass){
+            //     comando = {
+            //         "email": email,
+            //         "password": pass
+            //     };  
                 
-                $.ajax({
-                    url: "https://localhost:5001/Usuario/Login",
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(comando), //Convierte a la variable comando en json que se envia a la api
-                    success: function(result) {
-                        if(result.ok){
-                            //swal.fire("Inicio exitoso");
+            //     $.ajax({
+            //         url: "https://localhost:5001/Usuario/Login",
+            //         type: "POST",
+            //         dataType: "json",
+            //         contentType: "application/json",
+            //         data: JSON.stringify(comando), //Convierte a la variable comando en json que se envia a la api
+            //         success: function(result) {
+            //             if(result.ok){
+            //                 //swal.fire("Inicio exitoso");
 
-                            localStorage.setItem("emailUsuario", result.return.email);
+            //                 localStorage.setItem("emailUsuario", result.return.email);
                             
-                            //redireccion
-                            window.location.replace("index.html");
-                        }
-                        else{
-                            swal.fire(result.error);
-                        }
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            } 
+            //                 //redireccion
+            //                 window.location.replace("index.html");
+            //             }
+            //             else{
+            //                 swal.fire(result.error);
+            //             }
+            //         },
+            //         error: function(error) {
+            //             console.log(error);
+            //         }
+            //     });
+            // } 
         }); 
 
     </script>

@@ -168,25 +168,19 @@
                                         <div class="col-lg-4 pl-5">
                                             <label for="">Marca:</label>
                                             <select class="form-select form-control" id="cboMarca" required>
-                                                <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
+                                                <option selected value="" disabled>Seleccione</option>                                                
                                             </select>
                                         </div>
                                         <div class="col-lg-4 pl-5">
                                             <label for="">Rubro:</label>
                                             <select class="form-select form-control " id="cboRubro" required>
-                                                <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
+                                                <option selected value="" disabled>Seleccione</option>                                               
                                             </select>
                                         </div>
                                         <div class="col-lg-4 pl-5">
                                             <label for="">Empaquetado:</label>
                                             <select class="form-select form-control " id="cboEmpaquetado" required>
                                                 <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
                                             </select>
                                         </div>
                                     </div>
@@ -290,38 +284,39 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
+    <!-- <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-    <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/demo/datatables-demo.js"></script> -->
 
     <script>
 
         $( document ).ready(function() {
             
-            $.ajax({
-                url: "https://localhost:5001/Productos/ObtenerListadoDeProductos",
-                type: "GET",                
-                success: function(result) 
-                {                    
-                    if(result.ok)
-                    {       
-                        cargarTabla(result.resultado);                        
-                    }
-                    else{
-                        swal.fire(result.error);
-                    }
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
+            // $.ajax({
+            //     url: "",
+            //     type: "GET",                
+            //     success: function(result) 
+            //     {                    
+            //         if(result.ok)
+            //         {       
+            //             cargarTabla(result.return);                        
+            //         }
+            //         else{
+            //             swal.fire(result.error);
+            //         }
+            //     },
+            //     error: function(error) {
+            //         console.log(error);
+            //     }
+            // });
 
             //var usuario = localStorage.getItem("emailUsuario");
             //swal.fire("Bienvenido" + usuario);
@@ -332,7 +327,7 @@
                 success: function(result) {
                     if(result.ok)
                     {
-                        cargarComboMarca(result.resultado);                    
+                        cargarComboMarca(result.return);                    
                     }
                     else{
                         Swal.fire({
@@ -354,7 +349,7 @@
                 success: function(result) {
                     if(result.ok)
                     {
-                        cargarComboRubro(result.resultado);                    
+                        cargarComboRubro(result.return);                    
                     }
                     else{
                         Swal.fire({
@@ -376,7 +371,7 @@
                 success: function(result) {
                     if(result.ok)
                     {
-                        cargarComboEmpaquetado(result.resultado);                    
+                        cargarComboEmpaquetado(result.return);                    
                     }
                     else{
                         Swal.fire({
