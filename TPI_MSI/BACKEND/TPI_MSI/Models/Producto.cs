@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -25,10 +26,15 @@ namespace TPI_MSI.Models
         public int? Esfragil { get; set; }
         public int? Idstockfk { get; set; }
 
+        [ForeignKey("Idempaquetadofk")]
         public virtual Empaquetado IdempaquetadofkNavigation { get; set; }
+        [ForeignKey("Idmarcafk")]
         public virtual Marca IdmarcafkNavigation { get; set; }
+        [ForeignKey("Idpaisorigenfk")]
         public virtual PaisesOrigen IdpaisorigenfkNavigation { get; set; }
+        [ForeignKey("Idrubrofk")]
         public virtual Rubro IdrubrofkNavigation { get; set; }
+        [ForeignKey("Idstockfk")]
         public virtual Stock IdstockfkNavigation { get; set; }
         public virtual ICollection<DetallesDespacho> DetallesDespachos { get; set; }
         public virtual ICollection<DetallesPedido> DetallesPedidos { get; set; }
