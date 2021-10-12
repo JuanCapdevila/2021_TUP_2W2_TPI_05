@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
 
 #nullable disable
 
@@ -23,7 +22,7 @@ namespace TPI_MSI.Models
         public int? Idempaquetado { get; set; }
         public decimal? Peso { get; set; }
         public string Unidadmedicion { get; set; }
-        public BitArray Esfragil { get; set; }
+        public int? Esfragil { get; set; }
         public int? Idstock { get; set; }
 
         public virtual Empaquetado IdempaquetadoNavigation { get; set; }
