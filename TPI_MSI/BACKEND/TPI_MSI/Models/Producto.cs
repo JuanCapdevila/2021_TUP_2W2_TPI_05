@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -14,28 +13,23 @@ namespace TPI_MSI.Models
             DetallesPedidos = new HashSet<DetallesPedido>();
         }
 
-        public int Id { get; set; }
+        public int Idproducto { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public int? Idpaisorigent { get; set; }
-        public int? Idrubro { get; set; }
-        public int? Idmarca { get; set; }
-        public int? Idempaquetado { get; set; }
+        public int? Idpaisorigenfk { get; set; }
+        public int? Idrubrofk { get; set; }
+        public int? Idmarcafk { get; set; }
+        public int? Idempaquetadofk { get; set; }
         public decimal? Peso { get; set; }
         public string Unidadmedicion { get; set; }
         public int? Esfragil { get; set; }
-        public int? Idstock { get; set; }
+        public int? Idstockfk { get; set; }
 
-       [ForeignKey("Id")]
-        public virtual Empaquetado IdempaquetadoNavigation { get; set; }
-        [ForeignKey("Id")]
-        public virtual Marca IdmarcaNavigation { get; set; }
-        [ForeignKey("Id")]
-        public virtual PaisesOrigen IdpaisorigentNavigation { get; set; }
-        [ForeignKey("Id")]
-        public virtual Rubro IdrubroNavigation { get; set; }
-        [ForeignKey("Id")]
-        public virtual Stock IdstockNavigation { get; set; }
+        public virtual Empaquetado IdempaquetadofkNavigation { get; set; }
+        public virtual Marca IdmarcafkNavigation { get; set; }
+        public virtual PaisesOrigen IdpaisorigenfkNavigation { get; set; }
+        public virtual Rubro IdrubrofkNavigation { get; set; }
+        public virtual Stock IdstockfkNavigation { get; set; }
         public virtual ICollection<DetallesDespacho> DetallesDespachos { get; set; }
         public virtual ICollection<DetallesPedido> DetallesPedidos { get; set; }
     }

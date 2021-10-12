@@ -12,7 +12,7 @@ namespace TPI_MSI.Models
             Pedidos = new HashSet<Pedido>();
         }
 
-        public int Id { get; set; }
+        public int Idestado { get; set; }
         public string Descripcion { get; set; }
 
         public virtual ICollection<Pedido> Pedidos { get; set; }

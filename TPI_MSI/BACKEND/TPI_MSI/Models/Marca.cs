@@ -9,12 +9,12 @@ namespace TPI_MSI.Models
     {
         public Marca()
         {
-            //Productos = new HashSet<Producto>();
+            Productos = new HashSet<Producto>();
         }
 
-        public int Id { get; set; }
+        public int Idmarca { get; set; }
         public string Descripcion { get; set; }
 
-        //public virtual ICollection<Producto> Productos { get; set; }
+        public virtual ICollection<Producto> Productos { get; set; }
     }
 }

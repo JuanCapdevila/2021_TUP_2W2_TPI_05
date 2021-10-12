@@ -12,7 +12,7 @@ namespace TPI_MSI.Models
             DespachosProductos = new HashSet<DespachosProducto>();
         }
 
-        public int Id { get; set; }
+        public int Iddestinatario { get; set; }
         public string Descripcion { get; set; }
         public string Direccion { get; set; }
 
