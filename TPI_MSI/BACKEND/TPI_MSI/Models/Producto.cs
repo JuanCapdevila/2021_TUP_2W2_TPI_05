@@ -26,7 +26,7 @@ namespace TPI_MSI.Models
         public int? Esfragil { get; set; }
         public int? Idstock { get; set; }
 
-        [ForeignKey("Id")]
+       [ForeignKey("Id")]
         public virtual Empaquetado IdempaquetadoNavigation { get; set; }
         [ForeignKey("Id")]
         public virtual Marca IdmarcaNavigation { get; set; }
