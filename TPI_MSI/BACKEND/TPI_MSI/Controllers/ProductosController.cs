@@ -105,6 +105,7 @@ namespace TPI_MSI.Controllers
 
 
             Producto c = new Producto();
+            c.Id=0;
             c.Nombre = nombre;
             c.Descripcion = descripcion;
             c.Idpaisorigent = idpaisorigent;

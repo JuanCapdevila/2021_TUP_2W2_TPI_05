@@ -41,7 +41,7 @@ namespace TPI_MSI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5433;Database=EASYSTOCKBD;User Id=msiES;Password=123456");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=EASYSTOCKBD;User Id=msiES;Password=123456");
             }
         }
 
@@ -346,30 +346,30 @@ namespace TPI_MSI.Models
                     .HasMaxLength(60)
                     .HasColumnName("unidadmedicion");
 
-                entity.HasOne(d => d.IdempaquetadoNavigation)
-                    .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idempaquetado)
-                    .HasConstraintName("productos_idempaquetado_fkey");
+               // entity.HasOne(d => d.IdempaquetadoNavigation)
+                 //   .WithMany(p => p.Productos)
+                   // .HasForeignKey(d => d.Idempaquetado)
+                    //.HasConstraintName("productos_idempaquetado_fkey");
 
-                entity.HasOne(d => d.IdmarcaNavigation)
-                    .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idmarca)
-                    .HasConstraintName("productos_idmarca_fkey");
+                //entity.HasOne(d => d.IdmarcaNavigation)
+                  //  .WithMany(p => p.Productos)
+                   // .HasForeignKey(d => d.Idmarca)
+                    //.HasConstraintName("productos_idmarca_fkey");
 
-                entity.HasOne(d => d.IdpaisorigentNavigation)
-                    .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idpaisorigent)
-                    .HasConstraintName("productos_idpaisorigent_fkey");
+                //entity.HasOne(d => d.IdpaisorigentNavigation)
+                  //  .WithMany(p => p.Productos)
+                   // .HasForeignKey(d => d.Idpaisorigent)
+                    //.HasConstraintName("productos_idpaisorigent_fkey");
 
-                entity.HasOne(d => d.IdrubroNavigation)
-                    .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idrubro)
-                    .HasConstraintName("productos_idrubro_fkey");
+                //entity.HasOne(d => d.IdrubroNavigation)
+                  //  .WithMany(p => p.Productos)
+                    //.HasForeignKey(d => d.Idrubro)
+                    //.HasConstraintName("productos_idrubro_fkey");
 
-                entity.HasOne(d => d.IdstockNavigation)
-                    .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.Idstock)
-                    .HasConstraintName("productos_idstock_fkey");
+                //entity.HasOne(d => d.IdstockNavigation)
+                  //  .WithMany(p => p.Productos)
+                    //.HasForeignKey(d => d.Idstock)
+                    //.HasConstraintName("productos_idstock_fkey");
             });
 
             modelBuilder.Entity<Proveedore>(entity =>
@@ -464,10 +464,10 @@ namespace TPI_MSI.Models
                     .HasMaxLength(40)
                     .HasColumnName("usuario");
 
-                entity.HasOne(d => d.IdrolNavigation)
-                    .WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.Idrol)
-                    .HasConstraintName("usuarios_idrol_fkey");
+                //entity.HasOne(d => d.IdrolNavigation)
+                  //  .WithMany(p => p.Usuarios)
+                    //.HasForeignKey(d => d.Idrol)
+                    //.HasConstraintName("usuarios_idrol_fkey");
             });
 
             OnModelCreatingPartial(modelBuilder);

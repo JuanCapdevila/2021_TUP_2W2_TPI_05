@@ -13,7 +13,7 @@ namespace Comandos.ComandoAltaProducto {
         public int? Idempaquetado { get; set; }
         public decimal? Peso { get; set; }
         public string Unidadmedicion { get; set; }
-        public Boolean Esfragil { get; set; }
+        public int? Esfragil { get; set; }
         public int? Idstock { get; set; }
 
         
