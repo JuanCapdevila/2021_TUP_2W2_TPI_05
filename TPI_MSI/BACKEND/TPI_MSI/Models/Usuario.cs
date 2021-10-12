@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -12,6 +13,7 @@ namespace TPI_MSI.Models
         public string Contrasenia { get; set; }
         public int? Idrol { get; set; }
 
+        [ForeignKey("Id")]
         public virtual Role IdrolNavigation { get; set; }
     }
 }

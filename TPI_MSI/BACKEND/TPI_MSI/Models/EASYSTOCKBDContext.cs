@@ -41,7 +41,7 @@ namespace TPI_MSI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5433;Database=EASYSTOCKBD;User Id=prog3;Password=fortunato");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=EASYSTOCKBD;User Id=msiES;Password=123456");
             }
         }
 
@@ -428,10 +428,10 @@ namespace TPI_MSI.Models
                     .HasMaxLength(40)
                     .HasColumnName("usuario");
 
-                entity.HasOne(d => d.IdrolNavigation)
+                /*entity.HasOne(d => d.IdrolNavigation)
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.Idrol)
-                    .HasConstraintName("usuarios_idrol_fkey");
+                    .HasConstraintName("usuarios_idrol_fkey");*/
             });
 
             OnModelCreatingPartial(modelBuilder);
