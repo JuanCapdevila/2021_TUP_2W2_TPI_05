@@ -238,7 +238,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; EasyStock 2021</span>
                     </div>
                 </div>
             </footer>
@@ -266,7 +266,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Seleccione "Logout" debajo si desea abandonar la sesión actual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
@@ -284,7 +284,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+    <script src="js/index.js"></script>  
 
     <!-- Page level plugins -->
     <!-- <script src="vendor/chart.js/Chart.min.js"></script>
@@ -296,148 +297,6 @@
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="js/demo/datatables-demo.js"></script> -->
 
-    <script>
-
-        $( document ).ready(function() {
-            
-            // $.ajax({
-            //     url: "",
-            //     type: "GET",                
-            //     success: function(result) 
-            //     {                    
-            //         if(result.ok)
-            //         {       
-            //             cargarTabla(result.return);                        
-            //         }
-            //         else{
-            //             swal.fire(result.error);
-            //         }
-            //     },
-            //     error: function(error) {
-            //         console.log(error);
-            //     }
-            // });
-
-            //var usuario = localStorage.getItem("emailUsuario");
-            //swal.fire("Bienvenido" + usuario);
-
-            $.ajax({
-                url: "https://localhost:5001/Marca/ObtenerMarca",
-                type: "GET",
-                success: function(result) {
-                    if(result.ok)
-                    {
-                        cargarComboMarca(result.return);                    
-                    }
-                    else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Error al cargar el combo',
-
-                        });
-                    }
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            }); 
-
-            $.ajax({
-                url: "https://localhost:5001/Rubro/ObtenerRubro",
-                type: "GET",
-                success: function(result) {
-                    if(result.ok)
-                    {
-                        cargarComboRubro(result.return);                    
-                    }
-                    else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Error al cargar el combo',
-
-                        });
-                    }
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-
-            $.ajax({
-                url: "https://localhost:5001/Empaquetado/ObtenerEmpaquetado",
-                type: "GET",
-                success: function(result) {
-                    if(result.ok)
-                    {
-                        cargarComboEmpaquetado(result.return);                    
-                    }
-                    else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Error al cargar el combo',
-
-                        });
-                    }
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-            
-        });  
-        
-        function cargarTabla(datos){
-            
-            for (let i = 0; i < datos.length; i++) 
-            {
-                let html = "<tr>"; 
-
-                html += "<td>" + datos[i].Nombre + "</td>";
-                html += "<td>" + datos[i].Descripción + "</td>";
-                html += "<td>" + datos[i].Stock + "</td>";
-                html += "<td>" + datos[i].Marca + "</td>";
-                html += "<td>" + datos[i].Rubro + "</td>";
-
-                html += "</tr>";  
-                $("#cuerpoTabla").append(html);                               
-            }         
-            
-        }     
-        
-        function cargarComboMarca(datos){
-            select = document.getElementById("cboMarca");
-            for (let i = 0; i < datos.length; i++) {
-                var option = document.createElement('option');
-                option.text = datos[i].descripcion;
-                select.add(option);
-            }
-            console.log(select.value);
-        }
-
-        function cargarComboRubro(datos){
-            select = document.getElementById("cboRubro");
-            for (let i = 0; i < datos.length; i++) {
-                var option = document.createElement('option');
-                option.text = datos[i].descripcion;
-                select.add(option);
-            }
-            console.log(select.value);
-        }
-
-        function cargarComboEmpaquetado(datos){
-            select = document.getElementById("cboEmpaquetado");
-            for (let i = 0; i < datos.length; i++) {
-                var option = document.createElement('option');
-                option.text = datos[i].descripcion;
-                select.add(option);
-            }
-            console.log(select.value);
-        }
-
-    </script>
 
 </body>
 
