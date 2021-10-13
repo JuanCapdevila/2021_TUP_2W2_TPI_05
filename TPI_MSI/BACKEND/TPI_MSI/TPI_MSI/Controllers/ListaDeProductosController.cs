@@ -310,7 +310,6 @@ namespace TPI_MSI.Controllers
               var resultado = new ResultadoApi(); 
             try
             {
-             
               var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
@@ -325,7 +324,6 @@ namespace TPI_MSI.Controllers
                        ESFRAGIL = p.Esfragil                                                                 
                     }).FirstOrDefault();
 
-             // var producto =  db.Productos.Where(c => c.Id == idProducto).FirstOrDefault();
               resultado.OK = true;
               resultado.Return = query;      
               return resultado;
