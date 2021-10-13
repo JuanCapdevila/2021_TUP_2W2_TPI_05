@@ -307,7 +307,7 @@ namespace TPI_MSI.Controllers
         [Route("Producto/ObtenerProducto/{idProducto}")]
            public ActionResult<ResultadoApi> getProducto(int idProducto)
         {          
-              var resultado = new ResultadoApi();
+              var resultado = new ResultadoApi(); 
             try
             {
              
@@ -327,8 +327,7 @@ namespace TPI_MSI.Controllers
 
              // var producto =  db.Productos.Where(c => c.Id == idProducto).FirstOrDefault();
               resultado.OK = true;
-              resultado.Return = query;
-              
+              resultado.Return = query;      
               return resultado;
               
             }
