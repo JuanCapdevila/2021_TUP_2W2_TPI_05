@@ -1,4 +1,4 @@
-﻿using System.Runtime;
+using System.Runtime;
 using System.Reflection.Metadata.Ecma335;
 using System.Diagnostics.Contracts;
 using System.Runtime.Intrinsics.X86;
@@ -19,28 +19,29 @@ using Microsoft.AspNetCore.Cors;
 using Resultados;
 using TPI_MSI.Models;
 using Comandos.ComandoAltaProducto;
-
+using TPI_MSI.Comandos;
 
 namespace TPI_MSI.Controllers
 {
     [ApiController]
     [EnableCors("Prog3")]
-    public class ProductosController : ControllerBase
+    public class ActualizarProductoController : ControllerBase
     {
         private readonly EASYSTOCKBDContext  db = new EASYSTOCKBDContext();
     
 
-        public ProductosController()
+        public ActualizarProductoController()
         {
 
         }
 
 // 
         [HttpPost]
-        [Route("Productos/AltaProductos")]
-        public ActionResult<ResultadoApi> AltaProdcuto([FromBody]ComandoAltaProducto comando)
+        [Route("Productos/ModificarProducto")]
+        public ActionResult<ResultadoApi> AltaProdcuto([FromBody]ComandoModificarProducto comando)
         {
             ResultadoApi respuesta = new ResultadoApi();
+            var id = comando.Id;
             var nombre = comando.Nombre.Trim();
             var descripcion = comando.Descripcion.Trim();
             var idpaisorigent = comando.Idpaisorigent;
@@ -51,6 +52,7 @@ namespace TPI_MSI.Controllers
             var unidadMedicion = comando.Unidadmedicion;
             var esFragil = comando.Esfragil;
             var idstock = comando.Idstock;
+
             if(string.IsNullOrEmpty(nombre)){
                 respuesta.OK=false;
                 respuesta.Error = "Debe ingresar un nombre";
@@ -103,30 +105,30 @@ namespace TPI_MSI.Controllers
                 return respuesta;
             }
 
+            var producto = db.Productos.FirstOrDefault(x => x.Idproducto == comando.Id);
 
-            Producto c = new Producto();
-            //c.Id=0;
-            c.Nombre = nombre;
-            c.Descripcion = descripcion;
-            c.Idpaisorigenfk = idpaisorigent;
-            c.Idrubrofk = idrubro;
-            c.Idmarcafk = idmarca;
-            c.Idempaquetadofk = idempaquetado;
-            c.Peso = peso;
-            c.Unidadmedicion=unidadMedicion;
-            c.Esfragil = esFragil;
-            c.Idstockfk=idstock;
+            producto.Nombre = comando.Nombre;
+            producto.Descripcion = comando.Descripcion;
+            producto.Idpaisorigenfk = comando.Idpaisorigent;
+            producto.Idrubrofk = comando.Idrubro;
+            producto.Idmarcafk = comando.Idmarca;
+            producto.Idstockfk = comando.Idstock;
+            producto.Idempaquetadofk = comando.Idempaquetado;
+            producto.Peso = comando.Peso;
+            producto.Unidadmedicion = comando.Unidadmedicion;
+            producto.Esfragil = comando.Esfragil;
 
-            db.Productos.Add(c);
+
+            db.Productos.Update(producto);
             db.SaveChanges();
 
             respuesta.OK=true;
-            respuesta.Return=db.Productos.ToList();
+            respuesta.Return=db.Productos.FirstOrDefault(x => x.Idproducto == comando.Id);
             return respuesta;
 
         } // fin  Alta PRODUCTOS
 
-
+        
 
 
 
@@ -134,8 +136,4 @@ namespace TPI_MSI.Controllers
 
 
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master

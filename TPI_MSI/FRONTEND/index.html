@@ -167,26 +167,20 @@
                                         </div>
                                         <div class="col-lg-4 pl-5">
                                             <label for="">Marca:</label>
-                                            <select class="form-select form-control" id="comboCiud" required>
-                                                <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
+                                            <select class="form-select form-control" id="cboMarca" required>
+                                                <option selected value="" disabled>Seleccione</option>                                                
                                             </select>
                                         </div>
                                         <div class="col-lg-4 pl-5">
                                             <label for="">Rubro:</label>
-                                            <select class="form-select form-control " id="comboCiud" required>
-                                                <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
+                                            <select class="form-select form-control " id="cboRubro" required>
+                                                <option selected value="" disabled>Seleccione</option>                                               
                                             </select>
                                         </div>
                                         <div class="col-lg-4 pl-5">
                                             <label for="">Empaquetado:</label>
-                                            <select class="form-select form-control " id="comboCiud" required>
+                                            <select class="form-select form-control " id="cboEmpaquetado" required>
                                                 <option selected value="" disabled>Seleccione</option>
-                                                <option>Administrador</option>
-                                                <option>Encargado de Depósito</option>
                                             </select>
                                         </div>
                                     </div>
@@ -216,7 +210,7 @@
                                                     <th scope="col">Historial</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="cuerpoTabla">
                                                 <tr>
                                                     <th scope="row">Televisor</th>
                                                     <td>Pantalla plana 20''</td>
@@ -290,16 +284,160 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
+    <!-- <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-    <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/demo/datatables-demo.js"></script> -->
+
+    <script>
+
+        $( document ).ready(function() {
+            
+            // $.ajax({
+            //     url: "",
+            //     type: "GET",                
+            //     success: function(result) 
+            //     {                    
+            //         if(result.ok)
+            //         {       
+            //             cargarTabla(result.return);                        
+            //         }
+            //         else{
+            //             swal.fire(result.error);
+            //         }
+            //     },
+            //     error: function(error) {
+            //         console.log(error);
+            //     }
+            // });
+
+            //var usuario = localStorage.getItem("emailUsuario");
+            //swal.fire("Bienvenido" + usuario);
+
+            $.ajax({
+                url: "https://localhost:5001/Marca/ObtenerMarca",
+                type: "GET",
+                success: function(result) {
+                    if(result.ok)
+                    {
+                        cargarComboMarca(result.return);                    
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al cargar el combo',
+
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            }); 
+
+            $.ajax({
+                url: "https://localhost:5001/Rubro/ObtenerRubro",
+                type: "GET",
+                success: function(result) {
+                    if(result.ok)
+                    {
+                        cargarComboRubro(result.return);                    
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al cargar el combo',
+
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+            $.ajax({
+                url: "https://localhost:5001/Empaquetado/ObtenerEmpaquetado",
+                type: "GET",
+                success: function(result) {
+                    if(result.ok)
+                    {
+                        cargarComboEmpaquetado(result.return);                    
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al cargar el combo',
+
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+            
+        });  
+        
+        function cargarTabla(datos){
+            
+            for (let i = 0; i < datos.length; i++) 
+            {
+                let html = "<tr>"; 
+
+                html += "<td>" + datos[i].Nombre + "</td>";
+                html += "<td>" + datos[i].Descripción + "</td>";
+                html += "<td>" + datos[i].Stock + "</td>";
+                html += "<td>" + datos[i].Marca + "</td>";
+                html += "<td>" + datos[i].Rubro + "</td>";
+
+                html += "</tr>";  
+                $("#cuerpoTabla").append(html);                               
+            }         
+            
+        }     
+        
+        function cargarComboMarca(datos){
+            select = document.getElementById("cboMarca");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+            console.log(select.value);
+        }
+
+        function cargarComboRubro(datos){
+            select = document.getElementById("cboRubro");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+            console.log(select.value);
+        }
+
+        function cargarComboEmpaquetado(datos){
+            select = document.getElementById("cboEmpaquetado");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+            console.log(select.value);
+        }
+
+    </script>
 
 </body>
 

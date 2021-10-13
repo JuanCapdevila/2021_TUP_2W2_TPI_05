@@ -41,7 +41,7 @@ namespace TPI_MSI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5433;Database=EASYSTOCKBD;User Id=msiES;Password=123456");
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=EASYSTOCKBD;User Id=msiES;Password=123456");
             }
         }
 

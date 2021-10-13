@@ -50,7 +50,7 @@ namespace TPI_MSI.Controllers
                  try
             {
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca                     
                     orderby p.Idproducto select new {                        
@@ -83,11 +83,19 @@ namespace TPI_MSI.Controllers
             {
                 
                 resultado.OK = true;        
+<<<<<<< HEAD
                var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca    
                     where p.Idrubrofk== comando.IdRubro && p.Idmarcafk== comando.IdMarca                                              
                        orderby p.Idproducto select new {                        
+=======
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                    where p.Idrubrofk== comando.IdRubro &&   p.Idmarcafk== comando.IdMarca                                              
+                    orderby p.Idproducto select new {                        
+>>>>>>> master
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -114,11 +122,11 @@ namespace TPI_MSI.Controllers
             {
                 
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubro equals r.Id 
-                                                     join s in db.Stocks on p.Idstock equals s.Id 
-                                                     join m in db.Marcas on p.Idmarca equals m.Id 
-                    where  p.Idrubro == comando.IdRubro &&  p.Idempaquetado == comando.IdEmpaquetado                                              
-                    orderby p.Id select new {                        
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                    where  p.Idrubrofk == comando.IdRubro &&  p.Idempaquetadofk == comando.IdEmpaquetado                                              
+                    orderby p.Idproducto select new {                        
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -146,11 +154,11 @@ namespace TPI_MSI.Controllers
             {
                 
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubro equals r.Id 
-                                                     join s in db.Stocks on p.Idstock equals s.Id 
-                                                     join m in db.Marcas on p.Idmarca equals m.Id 
-                    where ( p.Idmarca == comando.IdMarca &&  p.Idempaquetado == comando.IdEmpaquetado )                                             
-                    orderby p.Id select new {                        
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                    where ( p.Idmarcafk == comando.IdMarca &&  p.Idempaquetadofk == comando.IdEmpaquetado )                                             
+                    orderby p.Idproducto select new {                        
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -177,11 +185,11 @@ namespace TPI_MSI.Controllers
             {
                 var rubro = comando.IdRubro;
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubro equals r.Id 
-                                                     join s in db.Stocks on p.Idstock equals s.Id 
-                                                     join m in db.Marcas on p.Idmarca equals m.Id 
-                    where p.Idrubro == comando.IdRubro                                                 
-                    orderby p.Id select new {                        
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                    where p.Idrubrofk == comando.IdRubro                                                 
+                    orderby p.Idproducto select new {                        
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -208,11 +216,11 @@ namespace TPI_MSI.Controllers
             {
                 var rubro = comando.IdRubro;
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubro equals r.Id 
-                                                     join s in db.Stocks on p.Idstock equals s.Id 
-                                                     join m in db.Marcas on p.Idmarca equals m.Id 
-                    where p.Idmarca == comando.IdMarca                                                 
-                    orderby p.Id select new {                        
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                    where p.Idmarcafk == comando.IdMarca                                                 
+                    orderby p.Idproducto select new {                        
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -239,11 +247,11 @@ namespace TPI_MSI.Controllers
             {
                 
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubro equals r.Id 
-                                                     join s in db.Stocks on p.Idstock equals s.Id 
-                                                     join m in db.Marcas on p.Idmarca equals m.Id 
-                    where p.Idempaquetado == comando.IdEmpaquetado                                                 
-                    orderby p.Id select new {                        
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                    where p.Idempaquetadofk == comando.IdEmpaquetado                                                 
+                    orderby p.Idproducto select new {                        
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -282,7 +290,7 @@ namespace TPI_MSI.Controllers
             try
             {
              
-              var producto =  db.Productos.Where(c => c.Id == idProducto).FirstOrDefault();
+              var producto =  db.Productos.Where(c => c.Idproducto == idProducto).FirstOrDefault();
               resultado.OK = true;
               resultado.Return = producto;
               

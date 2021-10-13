@@ -35,7 +35,7 @@ namespace TPI_MSI.Controllers
             try
             {
 
-                var usu = db.Usuarios.FirstOrDefault(x => x.Usuario1.Equals(comando.usuario) && x.Contrasenia.Equals(comando.Contrasenia) && x.Idrol.Equals(comando.Idrol));
+                var usu = db.Usuarios.FirstOrDefault(x => x.Usuario1.Equals(comando.usuario) && x.Contrasenia.Equals(comando.Contrasenia) && x.Idrolfk.Equals(comando.Idrol));
 
                 if (usu == null)
                 {
@@ -57,4 +57,8 @@ namespace TPI_MSI.Controllers
             return resultado;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

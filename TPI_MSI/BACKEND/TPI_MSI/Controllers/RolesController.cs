@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System.Security.Cryptography;
+=======
+using System.Security.Cryptography;
+>>>>>>> master
 using System.Data;
 using System.Data.Common;
 using System.Net.Http.Headers;
@@ -38,4 +42,8 @@ namespace TPI_MSI.Controllers
         }
 
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master
