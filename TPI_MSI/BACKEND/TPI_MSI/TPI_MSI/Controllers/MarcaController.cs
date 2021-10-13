@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿using System.Security.Cryptography;
-=======
-using System.Security.Cryptography;
->>>>>>> master
 using System.Data;
 using System.Data.Common;
 using System.Net.Http.Headers;
@@ -20,30 +16,26 @@ namespace TPI_MSI.Controllers
 {
     [ApiController]
     [EnableCors("Prog3")]
-    public class RolesController : ControllerBase
+    public class MarcaController : ControllerBase
     {
         private readonly EASYSTOCKBDContext  db = new EASYSTOCKBDContext();
     
 
-        public RolesController()
+        public MarcaController()
         {
 
         }
         // MOSTRAR TODOS LAS MARCAS 
         [HttpGet]
-        [Route("Roles/ObtenerRoles")]
+        [Route("Marca/ObtenerMarca")]
         public ActionResult<ResultadoApi> Get()
         {
             var resultado = new ResultadoApi();
             resultado.OK = true;
-            resultado.Return = db.Roles.ToList();
+            resultado.Return = db.Marcas.ToList();
           
             return resultado;
         }
 
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master

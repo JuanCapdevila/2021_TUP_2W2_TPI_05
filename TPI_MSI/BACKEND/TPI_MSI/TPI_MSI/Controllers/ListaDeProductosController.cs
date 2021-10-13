@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.Linq.Expressions;
+using System.Reflection.PortableExecutable;
+using System.Diagnostics;
 using System.Threading.Tasks.Dataflow;
 using System.ComponentModel;
 using System.Runtime;
@@ -50,7 +52,7 @@ namespace TPI_MSI.Controllers
                  try
             {
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca                     
                     orderby p.Idproducto select new {                        
@@ -73,29 +75,20 @@ namespace TPI_MSI.Controllers
          
           } // FIN ninguna opción seleccionada
 
-
-
-
-         /// INI - rubro y marca seleccionada
-           if (comando.IdRubro != 0  && comando.IdMarca != 0)
+         /// INI - rubro , marca  y empaquetado seleccionado
+           if (comando.IdRubro != 0  && comando.IdMarca != 0 && comando.IdEmpaquetado !=0)
             {
                  try
             {
                 
                 resultado.OK = true;        
-<<<<<<< HEAD
                var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca    
-                    where p.Idrubrofk== comando.IdRubro && p.Idmarcafk== comando.IdMarca                                              
+                    where p.Idrubrofk== comando.IdRubro  && 
+                          p.Idmarcafk == comando.IdMarca &&
+                          p.Idempaquetadofk == comando.IdEmpaquetado 
                        orderby p.Idproducto select new {                        
-=======
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
-                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
-                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
-                    where p.Idrubrofk== comando.IdRubro &&   p.Idmarcafk== comando.IdMarca                                              
-                    orderby p.Idproducto select new {                        
->>>>>>> master
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -113,20 +106,20 @@ namespace TPI_MSI.Controllers
                 return resultado;
             }
           }  
-          /// FIN - rubro y marca seleccionada
-/*
-             /// INI - rubro y empaquetado seleccionada
+          /// FIN -  rubro , marca  y empaquetado seleccionado
+
+             /// INI - rubro y empaquetado seleccionado
            if (comando.IdRubro != 0  && comando.IdEmpaquetado !=0 )
             {
                  try
             {
                 
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                  var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
                     where  p.Idrubrofk == comando.IdRubro &&  p.Idempaquetadofk == comando.IdEmpaquetado                                              
-                    orderby p.Idproducto select new {                        
+                    orderby p.Idproducto select new {                       
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -144,9 +137,41 @@ namespace TPI_MSI.Controllers
                 return resultado;
             }
           }  
-          /// FIN - rubro y marca seleccionada
+          /// FIN - rubro y empaquetado seleccionado
 
-            
+
+          /// INI - rubro y marca
+           if (comando.IdRubro != 0  && comando.IdMarca !=0 )
+            {
+                 try
+            {
+                
+                resultado.OK = true;        
+                  var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                    where  p.Idrubrofk == comando.IdRubro &&  p.Idmarcafk == comando.IdMarca                                            
+                    orderby p.Idproducto select new {                       
+                       NOMBRE = p.Nombre,
+                       DESCRIPCION = p.Descripcion,
+                       STOCK = s.Stockactual,       
+                       RUBRO = r.Descripcion,
+                       MARCA = m.Descripcion,                                                                      
+                    }).ToList();                             
+                 resultado.Return= query;
+                return resultado;
+            }
+            catch (System.Exception)
+            {
+                resultado.OK = false;
+                resultado.CodigoError = 1;
+                resultado.Error = "Error al intentar mostrar Productos";
+                return resultado;
+            }
+          }  
+          /// FIN - rubro y marca
+
+           
              /// INI - marca y empaquetado seleccionada
            if (comando.IdMarca != 0  && comando.IdEmpaquetado !=0 )
             {
@@ -154,11 +179,11 @@ namespace TPI_MSI.Controllers
             {
                 
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                 var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
-                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca
                     where ( p.Idmarcafk == comando.IdMarca &&  p.Idempaquetadofk == comando.IdEmpaquetado )                                             
-                    orderby p.Idproducto select new {                        
+                     orderby p.Idproducto select new {                      
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -185,11 +210,11 @@ namespace TPI_MSI.Controllers
             {
                 var rubro = comando.IdRubro;
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
-                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock
-                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                   var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca
                     where p.Idrubrofk == comando.IdRubro                                                 
-                    orderby p.Idproducto select new {                        
+                    orderby p.Idproducto select new {                       
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -216,11 +241,11 @@ namespace TPI_MSI.Controllers
             {
                 var rubro = comando.IdRubro;
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                 var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
                     where p.Idmarcafk == comando.IdMarca                                                 
-                    orderby p.Idproducto select new {                        
+                    orderby p.Idproducto select new {                          
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -247,11 +272,11 @@ namespace TPI_MSI.Controllers
             {
                 
                 resultado.OK = true;        
-                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
                     where p.Idempaquetadofk == comando.IdEmpaquetado                                                 
-                    orderby p.Idproducto select new {                        
+                     orderby p.Idproducto select new {                         
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       
@@ -271,29 +296,36 @@ namespace TPI_MSI.Controllers
           }  
           /// FIN - empaquetado seleccionado
 
-            */
-
+          
           return resultado;
 
         } // fin  MOSTRAR TODOS LOS PRODUCTOS
 
 // https://tup-msi-grupo5.atlassian.net/browse/IG2021-45 Crear Api para obtener productos
-      /*
+      
         [HttpGet]
         [Route("Producto/ObtenerProducto/{idProducto}")]
-           public ActionResult<ResultadoApi> Get456452(int idProducto)
-        {
-            
-            
-            
-              var resultado = new ResultadoApi();
+           public ActionResult<ResultadoApi> getProducto(int idProducto)
+        {          
+              var resultado = new ResultadoApi(); 
             try
             {
-             
-              var producto =  db.Productos.Where(c => c.Idproducto == idProducto).FirstOrDefault();
+              var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                                                     join e in db.Empaquetados on p.Idempaquetadofk equals e.Idempaquetado
+                    where p.Idproducto == idProducto                                                
+                     orderby p.Idproducto select new {                         
+                       NOMBRE = p.Nombre,
+                       DESCRIPCION = p.Descripcion,       
+                       RUBRO = r.Descripcion,
+                       MARCA = m.Descripcion,   
+                       EMPAQUETADO = e.Descripcion,
+                       ESFRAGIL = p.Esfragil                                                                 
+                    }).FirstOrDefault();
+
               resultado.OK = true;
-              resultado.Return = producto;
-              
+              resultado.Return = query;      
               return resultado;
               
             }
@@ -305,7 +337,7 @@ namespace TPI_MSI.Controllers
 
                 return resultado;
             }
-        }    */
+        }    
 
 
 
