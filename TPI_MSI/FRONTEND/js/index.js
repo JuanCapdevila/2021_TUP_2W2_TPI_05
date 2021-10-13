@@ -3,7 +3,7 @@
 $( document ).ready(function() {
 
     var usu = localStorage.getItem("usuario");
-    swal.fire("Bienvenido " + usu);
+    //swal.fire("Bienvenido " + usu);
             
     // $.ajax({
     //     url: "",
