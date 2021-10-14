@@ -15,46 +15,46 @@ using TPI_MSI.Comandos;
 
 namespace TPI_MSI.Controllers
 {
-    // [ApiController]
-    // [EnableCors("Prog3")]
-    // public class LoginController : ControllerBase
-    // {
-    //     private readonly EASYSTOCKBDContext db = new EASYSTOCKBDContext();
+    [ApiController]
+    [EnableCors("Prog3")]
+    public class LoginController : ControllerBase
+    {
+        private readonly EASYSTOCKBDContext db = new EASYSTOCKBDContext();
 
 
-    //     public LoginController()
-    //     {
+        public LoginController()
+        {
 
-    //     }
-    //     // MOSTRAR TODOS LAS MARCAS 
-    //     [HttpPost]
-    //     [Route("Login/ValidarDatos")]
-    //     public ActionResult<ResultadoApi> Post([FromBody] ComandoUsuario comando)
-    //     {
-    //         ResultadoApi resultado = new ResultadoApi();
-    //         try
-    //         {
+        }
+        // MOSTRAR TODOS LAS MARCAS 
+        [HttpPost]
+        [Route("Login/ValidarDatos")]
+        public ActionResult<ResultadoApi> Post([FromBody] ComandoUsuario comando)
+        {
+            ResultadoApi resultado = new ResultadoApi();
+            try
+            {
 
-    //             var usu = db.Usuarios.FirstOrDefault(x => x.Usuario1.Equals(comando.usuario) && x.Contrasenia.Equals(comando.Contrasenia) && x.Idrolfk.Equals(comando.Idrol));
+                var usu = db.Usuarios.FirstOrDefault(x => x.Usuario1.Equals(comando.usuario) && x.Contrasenia.Equals(comando.Contrasenia) && x.Idrolfk.Equals(comando.Idrol));
 
-    //             if (usu == null)
-    //             {
-    //                 resultado.OK = false;
-    //                 resultado.Error = "Usuario, contraseña o rol incorrectos";
-    //             }
-    //             else
-    //             {
-    //                 resultado.OK = true;
-    //                 resultado.Return = usu;
-    //             }
-    //         }
-    //         catch
-    //         {
-    //             resultado.OK = false;
-    //             resultado.Error = "No se pudo establecer conexión con la Base de Datos";
-    //         }
+                if (usu == null)
+                {
+                    resultado.OK = false;
+                    resultado.Error = "Usuario, contraseña o rol incorrectos";
+                }
+                else
+                {
+                    resultado.OK = true;
+                    resultado.Return = usu;
+                }
+            }
+            catch
+            {
+                resultado.OK = false;
+                resultado.Error = "No se pudo establecer conexión con la Base de Datos";
+            }
 
-    //         return resultado;
-    //     }
-    // }
+            return resultado;
+        }
+    }
 }

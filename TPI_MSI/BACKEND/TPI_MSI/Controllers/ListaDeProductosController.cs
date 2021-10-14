@@ -24,90 +24,87 @@ using TPI_MSI.Models;
 using Comandos.ComandoListadoProductos;
 
 
-// namespace TPI_MSI.Controllers
-// {
-    // [ApiController]
-    // [EnableCors("Prog3")]
-    //public class ListaDeProductosController : ControllerBase
-//     {
-//         private readonly EASYSTOCKBDContext  db = new EASYSTOCKBDContext();
+namespace TPI_MSI.Controllers
+{
+    [ApiController]
+    [EnableCors("Prog3")]
+    public class ListaDeProductosController : ControllerBase
+    {
+        private readonly EASYSTOCKBDContext  db = new EASYSTOCKBDContext();
     
 
-//         public ListaDeProductosController()
-//         {
+        public ListaDeProductosController()
+        {
 
-//         }
-// // https://tup-msi-grupo5.atlassian.net/browse/IG2021-55 Crear Api para cargar la lista de productos 
-// // 
-//         [HttpPost]
-//         [Route("Productos/ObtenerListadoDeProductos")]
-//         public ActionResult<ResultadoApi> Get2([FromBody]ComandoListadoProductos comando)
-//         {
-//             var resultado = new ResultadoApi();
-//             // INI ninguna opción seleccionada
-//             if (comando.IdRubro==0 && comando.IdMarca == 0 && comando.IdEmpaquetado == 0)
-//             {
-//                  try
-//             {
-//                 resultado.OK = true;        
-//                  var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
-//                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
-//                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca                     
-//                     orderby p.Idproducto select new {                        
-//                        NOMBRE = p.Nombre,
-//                        DESCRIPCION = p.Descripcion,
-//                        STOCK = s.Stockactual,       
-//                        RUBRO = r.Descripcion,
-//                        MARCA = m.Descripcion,                                                                      
-//                     }).ToList();   
-//                  resultado.Return= query;
-//                 return resultado;
-//             }
-//             catch (System.Exception)
-//             {
-//                 resultado.OK = false;
-//                 resultado.CodigoError = 1;
-//                 resultado.Error = "Error al intentar mostrar Productos";
-//                 return resultado;
-//             }
+        }
+// https://tup-msi-grupo5.atlassian.net/browse/IG2021-55 Crear Api para cargar la lista de productos 
+// 
+        [HttpPost]
+        [Route("Productos/ObtenerListadoDeProductos")]
+        public ActionResult<ResultadoApi> Get2([FromBody]ComandoListadoProductos comando)
+        {
+            var resultado = new ResultadoApi();
+            // INI ninguna opción seleccionada
+            if (comando.IdRubro==0 && comando.IdMarca == 0 && comando.IdEmpaquetado == 0)
+            {
+                 try
+            {
+                resultado.OK = true;        
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca                     
+                    orderby p.Idproducto select new {                        
+                       NOMBRE = p.Nombre,
+                       DESCRIPCION = p.Descripcion,
+                       STOCK = s.Stockactual,       
+                       RUBRO = r.Descripcion,
+                       MARCA = m.Descripcion,                                                                      
+                    }).ToList();   
+                 resultado.Return= query;
+                return resultado;
+            }
+            catch (System.Exception)
+            {
+                resultado.OK = false;
+                resultado.CodigoError = 1;
+                resultado.Error = "Error al intentar mostrar Productos";
+                return resultado;
+            }
          
-//           } // FIN ninguna opción seleccionada
+          } // FIN ninguna opción seleccionada
 
 
 
 
-//          /// INI - rubro y marca seleccionada
-//            if (comando.IdRubro != 0  && comando.IdMarca != 0)
-//             {
-//                  try
-//             {
+         /// INI - rubro y marca seleccionada
+           if (comando.IdRubro != 0  && comando.IdMarca != 0)
+            {
+                 try
+            {
                 
-//                 resultado.OK = true;        
-//                  var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
-//                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
-//                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
-//                     where p.Idrubrofk== comando.IdRubro &&   p.Idmarcafk== comando.IdMarca                                              
-//                     orderby p.Idproducto select new {                        
-//                        NOMBRE = p.Nombre,
-//                        DESCRIPCION = p.Descripcion,
-//                        STOCK = s.Stockactual,       
-//                        RUBRO = r.Descripcion,
-//                        MARCA = m.Descripcion,                                                                      
-//                     }).ToList();                             
-//                  resultado.Return= query;
-//                 return resultado;
-//             }
-//             catch (System.Exception)
-//             {
-//                 resultado.OK = false;
-//                 resultado.CodigoError = 1;
-//                 resultado.Error = "Error al intentar mostrar Productos";
-//                 return resultado;
-//             }
-//           } 
-
-          //DE ACA PARA ARRIBA LO COMENTE YO HASTA QUE SE SOLUCIONE
-
+                resultado.OK = true;        
+                 var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
+                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
+                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
+                    where p.Idrubrofk== comando.IdRubro &&   p.Idmarcafk== comando.IdMarca                                              
+                    orderby p.Idproducto select new {                        
+                       NOMBRE = p.Nombre,
+                       DESCRIPCION = p.Descripcion,
+                       STOCK = s.Stockactual,       
+                       RUBRO = r.Descripcion,
+                       MARCA = m.Descripcion,                                                                      
+                    }).ToList();                             
+                 resultado.Return= query;
+                return resultado;
+            }
+            catch (System.Exception)
+            {
+                resultado.OK = false;
+                resultado.CodigoError = 1;
+                resultado.Error = "Error al intentar mostrar Productos";
+                return resultado;
+            }
+          }  
           /// FIN - rubro y marca seleccionada
 /*
              /// INI - rubro y empaquetado seleccionada
@@ -268,9 +265,9 @@ using Comandos.ComandoListadoProductos;
 
             */
 
-          //return resultado;
+          return resultado;
 
-        //} // fin  MOSTRAR TODOS LOS PRODUCTOS
+        } // fin  MOSTRAR TODOS LOS PRODUCTOS
 
 // https://tup-msi-grupo5.atlassian.net/browse/IG2021-45 Crear Api para obtener productos
       /*
@@ -305,5 +302,5 @@ using Comandos.ComandoListadoProductos;
 
 
 
-//     }
-// }
+    }
+}
