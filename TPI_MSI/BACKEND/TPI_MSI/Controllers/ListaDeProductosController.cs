@@ -83,19 +83,11 @@ namespace TPI_MSI.Controllers
             {
                 
                 resultado.OK = true;        
-<<<<<<< HEAD
-               var query = (from p in db.Productos  join r in db.Rubros on p.Idrubrofk equals r.Idrubro
-                                                     join s in db.Stocks on p.Idstockfk equals s.Idstock 
-                                                     join m in db.Marcas on p.Idmarcafk equals m.Idmarca    
-                    where p.Idrubrofk== comando.IdRubro && p.Idmarcafk== comando.IdMarca                                              
-                       orderby p.Idproducto select new {                        
-=======
                  var query = (from p in db.Productos join r in db.Rubros on p.Idrubrofk equals r.Idrubro 
                                                      join s in db.Stocks on p.Idstockfk equals s.Idstock 
                                                      join m in db.Marcas on p.Idmarcafk equals m.Idmarca 
                     where p.Idrubrofk== comando.IdRubro &&   p.Idmarcafk== comando.IdMarca                                              
                     orderby p.Idproducto select new {                        
->>>>>>> master
                        NOMBRE = p.Nombre,
                        DESCRIPCION = p.Descripcion,
                        STOCK = s.Stockactual,       

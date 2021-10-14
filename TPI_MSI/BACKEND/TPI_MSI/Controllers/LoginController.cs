@@ -57,8 +57,4 @@ namespace TPI_MSI.Controllers
             return resultado;
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
